@@ -2,9 +2,9 @@
 
 This is a simple adaptor to use Nitinol with inmemory database.
 
-[!CAUTION]
-This in-memory adapter loses data when the program is terminated. (of course)
-It should only be used to test the library and should not be incorporated into production.
+> [!CAUTION]  
+> This in-memory adapter loses data when the program is terminated. (of course)  
+> It should only be used to test the library and do not be used into production.
 
 
 ### Usage
