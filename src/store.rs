@@ -37,11 +37,16 @@ impl Writer for InMemoryEventStore {
     async fn write(&self, aggregate_id: EntityId, payload: Payload) -> Result<(), ProtocolError> {
         let guard = self.store.read().await;
         if !guard.contains_key(&aggregate_id) {
+            tracing::debug!("not found entity: {}", aggregate_id);
+            
             drop(guard); // release the read lock
+            
+            tracing::debug!("create new store for entity: {}", aggregate_id);
             let mut guard = self.store.write().await;
             let mut init = BTreeSet::new();
             init.insert(payload);
             guard.insert(aggregate_id, OptLock::new(init));
+            tracing::debug!("create successfully.");
             return Ok(())
         }
         
