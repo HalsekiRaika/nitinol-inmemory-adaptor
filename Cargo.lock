@@ -212,8 +212,8 @@ dependencies = [
 
 [[package]]
 name = "nitinol"
-version = "0.2.0-alpha"
-source = "git+https://github.com/HalsekiRaika/nitinol?rev=2cb8f29a42605119d62e41030fbf62793ef4481f#2cb8f29a42605119d62e41030fbf62793ef4481f"
+version = "0.3.0-beta.1"
+source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
 dependencies = [
  "nitinol-core",
  "nitinol-protocol",
@@ -222,7 +222,7 @@ dependencies = [
 [[package]]
 name = "nitinol-core"
 version = "0.1.0"
-source = "git+https://github.com/HalsekiRaika/nitinol?rev=2cb8f29a42605119d62e41030fbf62793ef4481f#2cb8f29a42605119d62e41030fbf62793ef4481f"
+source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
 dependencies = [
  "async-trait",
  "futures-util",
@@ -246,7 +246,7 @@ dependencies = [
 [[package]]
 name = "nitinol-protocol"
 version = "0.1.0"
-source = "git+https://github.com/HalsekiRaika/nitinol?rev=2cb8f29a42605119d62e41030fbf62793ef4481f#2cb8f29a42605119d62e41030fbf62793ef4481f"
+source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
 dependencies = [
  "async-trait",
  "nitinol-core",
