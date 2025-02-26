@@ -52,8 +52,11 @@ impl Writer for InMemoryEventStore {
         let mut lock = lock.write().await
             .map_err(|e| ProtocolError::Write(Box::new(e)))?;
         
+        tracing::debug!("writing: {:?}", payload);
+        
         lock.insert(payload);
         
+        tracing::debug!("write successfully.");
         Ok(())
     }
 }
@@ -61,6 +64,8 @@ impl Writer for InMemoryEventStore {
 #[async_trait]
 impl Reader for InMemoryEventStore {
     async fn read(&self, id: EntityId, seq: i64) -> Result<Payload, ProtocolError> {
+        tracing::debug!("read: id={}, seq={}", id, seq);
+        
         let guard = self.store.read().await;
         let Some(lock) = guard.get(&id) else {
             return Err(ProtocolError::Read(Box::new(MemoryIoError::NotFound(id))));
@@ -90,6 +95,8 @@ impl Reader for InMemoryEventStore {
     }
     
     async fn read_to(&self, id: EntityId, from: i64, to: i64) -> Result<BTreeSet<Payload>, ProtocolError> {
+        tracing::debug!("read_to: id={}, from={}, to={}", id, from, to);
+        
         let guard = self.store.read().await;
         let Some(lock) = guard.get(&id) else {
             return Ok(BTreeSet::new());
@@ -115,6 +122,8 @@ impl Reader for InMemoryEventStore {
                 }
             }
         };
+        
+        tracing::trace!("len={}", found.len());
         
         Ok(found)
     }
