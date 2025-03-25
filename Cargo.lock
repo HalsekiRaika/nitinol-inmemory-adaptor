@@ -27,6 +27,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.97"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dcfed56ad506cb2c684a14971b8861fdc3baaaae314b9e5f9bb532cbe3ba7a4f"
+
+[[package]]
 name = "async-trait"
 version = "0.1.86"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -65,6 +71,41 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "darling"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6f63b86c8a8826a49b8c21f08a2d07338eec8d900540f8630dc76284be802989"
+dependencies = [
+ "darling_core",
+ "darling_macro",
+]
+
+[[package]]
+name = "darling_core"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95133861a8032aaea082871032f5815eb9e98cef03fa916ab4500513994df9e5"
+dependencies = [
+ "fnv",
+ "ident_case",
+ "proc-macro2",
+ "quote",
+ "strsim",
+ "syn",
+]
+
+[[package]]
+name = "darling_macro"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d336a2a514f6ccccaa3e09b02d41d35330c07ddf03a62165fcec10bb561c7806"
+dependencies = [
+ "darling_core",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "deranged"
 version = "0.3.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -72,6 +113,12 @@ checksum = "b42b6fa04a440b495c8b04d0e71b707c585f83cb9cb28cf8cd0d976c315e31b4"
 dependencies = [
  "powerfmt",
 ]
+
+[[package]]
+name = "fnv"
+version = "1.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
 
 [[package]]
 name = "futures"
@@ -169,6 +216,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
 
 [[package]]
+name = "ident_case"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
+
+[[package]]
+name = "itoa"
+version = "1.0.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4a5f13b858c8d314ee3e8f639011f7ccefe71f97f96e50151fb991f267928e2c"
+
+[[package]]
 name = "lazy_static"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -212,20 +271,23 @@ dependencies = [
 
 [[package]]
 name = "nitinol"
-version = "0.3.0-beta.1"
-source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "354381d8c62e9bb1a9f4d2d5a525a95d3ab8d2799f444c10c6042524f3728ed2"
 dependencies = [
  "nitinol-core",
+ "nitinol-macro",
+ "nitinol-persistence",
+ "nitinol-process",
  "nitinol-protocol",
 ]
 
 [[package]]
 name = "nitinol-core"
-version = "0.1.0"
-source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dbae2db121ffd178160555c598812557ef1f6f50fdb581cdc2a82bdc1aefc008"
 dependencies = [
- "async-trait",
- "futures-util",
  "serde",
  "thiserror",
 ]
@@ -234,9 +296,14 @@ dependencies = [
 name = "nitinol-inmemory-adaptor"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "futures",
  "nitinol",
+ "nitinol-core",
+ "nitinol-protocol",
+ "serde",
+ "serde_json",
  "thiserror",
  "tokio",
  "tracing",
@@ -244,15 +311,52 @@ dependencies = [
 ]
 
 [[package]]
+name = "nitinol-macro"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8252658842028739421a9182061922bb196097b707f4f05f6daae31103a4e7fb"
+dependencies = [
+ "darling",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "nitinol-persistence"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e451507de9cb3a8244739c4a5b6621677af6e60bc330a3a26c44ec656df4f113"
+dependencies = [
+ "async-trait",
+ "nitinol-core",
+ "nitinol-process",
+ "nitinol-protocol",
+ "tracing",
+]
+
+[[package]]
+name = "nitinol-process"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "207a82887aa3750f2473af3e5588de118a721957862d3dcc9b384f9c994d0275"
+dependencies = [
+ "async-trait",
+ "nitinol-core",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "nitinol-protocol"
 version = "0.1.0"
-source = "git+https://github.com/HalsekiRaika/nitinol?tag=v0.3.0-beta.1#8f60c2cbd06f03031589845901fa2ad0b6845fdb"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a50d8f18e4dd42699e889094db87b1227ee3f2d5d065cdc685a982f36955535c"
 dependencies = [
  "async-trait",
  "nitinol-core",
  "thiserror",
  "time",
- "tracing",
 ]
 
 [[package]]
@@ -379,6 +483,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "719b953e2095829ee67db738b3bfa9fa368c94900df327b3f07fe6e794d2fe1f"
 
 [[package]]
+name = "ryu"
+version = "1.0.20"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
+
+[[package]]
 name = "serde"
 version = "1.0.218"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -396,6 +506,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "serde_json"
+version = "1.0.140"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20068b6e96dc6c9bd23e01df8827e6c7e1f2fddd43c21810382803c136b99373"
+dependencies = [
+ "itoa",
+ "memchr",
+ "ryu",
+ "serde",
 ]
 
 [[package]]
@@ -421,6 +543,12 @@ name = "smallvec"
 version = "1.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fcf8323ef1faaee30a44a340193b1ac6814fd9b7b4e88e9d4519a3e4abe1cfd"
+
+[[package]]
+name = "strsim"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 
 [[package]]
 name = "syn"

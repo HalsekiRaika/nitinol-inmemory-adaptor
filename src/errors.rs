@@ -1,4 +1,4 @@
-use nitinol::EntityId;
+use nitinol_core::identifier::EntityId;
 
 #[derive(Debug, thiserror::Error)]
 pub enum MemoryIoError {
