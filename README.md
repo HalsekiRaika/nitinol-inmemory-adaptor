@@ -6,12 +6,14 @@ This is a simple adaptor to use Nitinol with inmemory database.
 > This in-memory adapter loses data when the program is terminated. (of course)  
 > It should only be used to test the library and do not be used into production.
 
-
-### Usage
-```toml
-# Why is it not uploaded to crates.io?
-# Because there are still many aspects of this library 
-# that are incomplete and could cause a TREMENDOUS amount of destruction.
-[dependencies.nitinol-inmemory-adaptor]
-git = "https://github.com/HalsekiRaika/nitinol-inmemory-adaptor"
+## Usage
+```rust
+#[tokio::main]
+async fn main() {
+    let eventstore = InMemoryEventStore::default();
+    let writer = EventWriter::new(eventstore).set_retry(5);
+    
+    // Install as global writer.
+    nitinol::setup::set_writer(writer);
+}
 ```
