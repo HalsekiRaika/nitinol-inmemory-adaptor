@@ -1,5 +1,7 @@
 [package]
 name = "nitinol-inmemory-adaptor"
+description = "In-memory storage adapter for `nitinol-persistence`."
+repository = "https://github.com/HalsekiRaika/nitinol-inmemory-adaptor"
 version = "0.1.0"
 license = "MIT"
 edition = "2021"
